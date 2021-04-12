@@ -1,5 +1,8 @@
 import math
 
+# from pprint import pp
+# from test_a import internal
+
 
 def f11(x, y, z):
     return math.sqrt(35 ** 3 - z ** 7) - (62 * z ** 8 - y ** 7) - (97 * y ** 7 + y ** 2) / (48 * x ** 6 - 5 * z)
@@ -58,5 +61,99 @@ def f14(n):
     else:
         return math.sin(f14(n - 1)) + math.tan(f14(n - 1))
 
+
 # print('1. %.2e' % f4(2))
 # print('i2. %.2e' % f4(4))
+
+def f21(x):
+    if x[1] == 'coq':
+        if x[2] == 'elm':
+            if x[0] == 1965:
+                if x[3] == 1993:
+                    return 0
+                elif x[3] == 2000:
+                    return 1
+            elif x[0] == 1990:
+                return 2
+        elif x[2] == 'jflex':
+            return 3
+        elif x[2] == 'diff':
+            if x[4] == 'muf':
+                if x[0] == 1965:
+                    return 4
+                elif x[0] == 1990:
+                    return 5
+            elif x[4] == 'cirru':
+                if x[3] == 1993:
+                    return 6
+                elif x[3] == 2000:
+                    return 7
+            elif x[4] == 'xojo':
+                if x[0] == 1965:
+                    return 8
+                elif x[0] == 1990:
+                    return 9
+    elif x[1] == 'terra':
+        return 10
+    elif x[1] == 'mql4':
+        return 11
+
+
+# print(f21([1965, 'mql4', 'diff', 2000, 'xojo']))
+# print(f21([1990, 'terra', 'diff', 2000, 'xojo']))
+
+def f22(code):
+    g = (code & ((2 ** 32 - 1) & ~(2 ** 31 - 1))) >> 9
+    f = (code & ((2 ** 31 - 1) & ~(2 ** 25 - 1))) >> 25
+    e = (code & ((2 ** 25 - 1) & ~(2 ** 21 - 1))) << 2
+    d = (code & ((2 ** 21 - 1) & ~(2 ** 12 - 1))) >> 6
+    c = (code & ((2 ** 12 - 1) & ~(2 ** 9 - 1))) << 18
+    b = (code & ((2 ** 9 - 1) & ~(2 ** 7 - 1))) << 23
+    a = (code & (2 ** 7 - 1)) << 15
+    return b | c | e | g | a | d | f
+
+
+# print(f22(0x69223c65))
+# print(0x34b288f4)
+
+def f23(table):
+    i = 0
+    while i < len(table) - 1:
+        j = i + 1
+        while j < len(table):
+            if table[i] == table[j]:
+                del table[j]
+                j -= 1
+            j += 1
+        i += 1
+
+    while j < len(table) - 1:
+        i = j + 1
+        while i < len(table):
+            if table[i] == table[j]:
+                del table[i]
+                i -= 1
+            i += 1
+        j += 1
+
+    clean = [[val for val in row if val] for row in table]
+    split = [[*row[0].split('!')[::-1], row[1]] for row in clean]
+    rule = '{}{} ({}{}{}) {}{}{}-{}{}-{}{}'
+    # ‐
+    pretty = [
+        [
+            rule.format(*r[0]),
+            r[1].split('@')[0],
+            '.'.join(r[2][2:].split('/')[::-1])
+        ]
+        for r in split]
+    transp = [list(i) for i in zip(*pretty)]
+    result = [transp[0], transp[2], transp[1]]
+    return result
+
+
+# pp(internal[0][0])
+# print('-----')
+# pp(f23(internal[7][0])[0] + internal[7][1][0])
+# pp(f23(internal[0][0]))
+# pp(internal[0][1])
